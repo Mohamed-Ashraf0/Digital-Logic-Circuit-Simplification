@@ -104,8 +104,13 @@ int main()
     }
     else
     {
-      x++;//modify the simplified expression
-      cout<<"modify the simplified expression";
+      x=x++;//modify the simplified expression
+      cout<<"modifying the simplified expression";
+      if(x==4)
+      {
+        cout<<"unable to modify circuit to be Satisfiable";
+        break;
+      }
     }
     }
     return 0;
