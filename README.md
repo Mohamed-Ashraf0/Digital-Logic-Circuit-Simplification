@@ -1,4 +1,4 @@
-# Circuit Equivalence and ssatisfiability Checker
+# Circuit Equivalence and satisfiability Checker
 
 This program evaluates two Boolean circuit expressions (an **original** and a **simplified** version), generates their truth tables, verifies if the outputs of both expressions are equivalent, and determines the satisfiable inputs under certain conditions. If both expressions are not satisfiable, the simplified expression is modified iteratively to find a satisfiable configuration.
 
