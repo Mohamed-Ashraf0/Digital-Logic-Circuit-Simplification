@@ -21,7 +21,7 @@ bool truthTable[8][3] = {
     {1, 1, 1}
     };
 
-void printTruthTable(bool truthTable[8][3], bool circuitoutput[8], string circuitName)
+void printTruthTable(bool circuitoutput[8], string circuitName)
 {
     cout << "Truth Table for " << circuitName << ":" << "\n";
     for (int i = 0; i < 8; ++i)
@@ -62,8 +62,8 @@ bool check_equivalance(bool status)
         }
     }
 
-    printTruthTable(truthTable, Original_Circuit_output, "Original Circuit");
-    printTruthTable(truthTable, Simplified_Circuit_output, "Simplified Circuit");
+    printTruthTable( Original_Circuit_output, "Original Circuit");
+    printTruthTable( Simplified_Circuit_output, "Simplified Circuit");
 
     if (not_equivalent)
     {
