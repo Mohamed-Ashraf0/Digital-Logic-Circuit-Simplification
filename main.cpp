@@ -11,14 +11,15 @@ using namespace std;
 
 // all inputs combinations
 bool truthTable[8][3] = {
-    {1, 1, 1},
-    {1, 1, 0},
-    {1, 0, 1},
-    {1, 0, 0},
-    {0, 1, 1},
-    {0, 1, 0},
+    {0, 0, 0},
     {0, 0, 1},
-    {0, 0, 0}};
+    {0, 1, 0},
+    {0, 1, 1},
+    {1, 0, 0},
+    {1, 0, 1},
+    {1, 1, 0},
+    {1, 1, 1}
+    };
 
 void printTruthTable(bool truthTable[8][3], bool circuitoutput[8], string circuitName)
 {
@@ -104,7 +105,7 @@ bool check_Satisfiability(bool status)
         {
             if (first_time)
             {
-                cout << "Satisfiable\nSatisfiable inputs:-\n";
+                cout << "Satisfiable.\nSatisfiable inputs:-\nA B C\n";
                 first_time = false;
             }
             cout << A << " " << B << " " << C << "\n";
