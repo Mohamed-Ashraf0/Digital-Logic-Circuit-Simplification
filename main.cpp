@@ -189,7 +189,7 @@ bool check_Satisfiability(string OriginalcircuitExpression,string Simplifiedcirc
         {
              if (first_time)
             {
-                cout << "Satisfiable.\nSatisfiable inputs:-\nA B C\n";
+                cout << "Expressions are Satisfiable.\nSatisfiable inputs:-\nA B C\n";
                 first_time = false;
             }
             cout << A << " " << B << " " << C << "\n";
@@ -197,7 +197,7 @@ bool check_Satisfiability(string OriginalcircuitExpression,string Simplifiedcirc
     }
     if (first_time)
     {
-        cout << "not Satisfiable\n";
+        cout << "Expressions are not Satisfiable\n";
         return false;
     }
     else
@@ -205,10 +205,39 @@ bool check_Satisfiability(string OriginalcircuitExpression,string Simplifiedcirc
         return true;
     }
 }
+bool check_tautology(string OriginalcircuitExpression,string SimplifiedcircuitExpression)
+{
+    cout << "checking tautology:-\n";
+    bool A, B, C;                      // circuit inputs
+    bool Original_Circuit_output[8];   // outputs of Original Circuit
+    bool Simplified_Circuit_output[8]; // outputs of Simplified Circuit
+    bool tautology = true;
+    string temp1,temp2;
+    // evaluating output of original and simplified circuit
+    for (int i = 0; i < 8; ++i)
+    {
+        A = truthTable[i][0];
+        B = truthTable[i][1];
+        C = truthTable[i][2];
+        temp1=OriginalcircuitExpression;
+        temp2=SimplifiedcircuitExpression;
+        substituteVariables(temp1, A, B, C);
+        substituteVariables(temp2, A, B, C);
+        Original_Circuit_output[i]=evaluateBooleanExpression(temp1);
+        Simplified_Circuit_output[i]=evaluateBooleanExpression(temp2);
+
+        if (!(Original_Circuit_output[i] ==true && Simplified_Circuit_output[i]==true))
+        {
+             tautology=false;
+        }
+    }
+     return tautology;
+}
 int main() {
     string OriginalcircuitExpression;
     string SimplifiedcircuitExpression;
     bool A, B, C;
+    bool changed=false;
     cout << "Enter the Original circuit expression(e.g., ((!((A|!(B)))&(A&B))&C)  ):";
     getline(cin, OriginalcircuitExpression);
     cout << "Enter the Simplified circuit expression(e.g., (((!(A)&A)&B)&C)  ): ";
@@ -222,6 +251,17 @@ int main() {
         cout << "Expressions are not equivalent.\n";
     }
     cout << "\n";
+
+     //checking tautology
+      if (check_tautology(OriginalcircuitExpression,SimplifiedcircuitExpression))
+    {
+        cout << "Expressions are tautology.\n";
+    }
+    else
+    {
+         cout << "Expressions are not tautology.\n";
+    }
+    cout << "\n";
      // ask user to change gate in circuit until reach satisfiable one
     while (!check_Satisfiability(OriginalcircuitExpression,SimplifiedcircuitExpression))
     {
@@ -230,9 +270,10 @@ int main() {
         getline(cin, OriginalcircuitExpression);
         cout << "Enter the Simplified modified circuit expression(e.g., (B&C) ): ";
         getline(cin, SimplifiedcircuitExpression);
+        changed=true;
     }
-
-     if (check_equivalance(OriginalcircuitExpression,SimplifiedcircuitExpression))
+     if(changed){
+     if (check_equivalance(OriginalcircuitExpression,SimplifiedcircuitExpression) )
     {
         cout << "Expressions are equivalent.\n";
     }
@@ -240,6 +281,7 @@ int main() {
     {
          cout << "Expressions are not equivalent.\n";
     }
+     }
 
     return 0;
 }
